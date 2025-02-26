@@ -984,11 +984,11 @@ const Signup = () => {
         <div className="flex items-center justify-center min-h-screen p-3">
             <div className="w-full max-w-md overflow-hidden bg-white rounded-xl shadow-xl transition-all duration-300 hover:shadow-2xl">
                 {/* Header with gradient background */}
-                <div className="relative h-28 sm:h-40 bg-gradient-to-r from-purple-600 to-indigo-600">
+                <div className="relative h-28 sm:h-40  bg-gradient-to-r from-purple-600 to-indigo-600">
                     <div className="absolute inset-0 bg-opacity-20 bg-cover bg-center"></div>
                     <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center transform translate-y-1/2">
                         <div className="p-3 bg-white rounded-full shadow-lg">
-                            <UserPlus size={22} className="text-purple-600" />
+                            <UserPlus size={40} className="text-purple-600" />
                         </div>
                     </div>
                 </div>
