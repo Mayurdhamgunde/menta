@@ -89,8 +89,70 @@
 
 // export default Dashboard;
 
+// import React, { useState } from "react";
+
+// const photos = [
+//   { id: 1, url: "https://res.cloudinary.com/dfrjuatt2/image/upload/v1740344143/first_iq1b0g.png", title: "Dashboard View 1" },
+//   { id: 2, url: "https://res.cloudinary.com/dfrjuatt2/image/upload/v1740344205/third_pzf99v.png", title: "Dashboard View 2" },
+//   { id: 3, url: "https://res.cloudinary.com/dfrjuatt2/image/upload/v1740344373/fourth_vw9k69.png", title: "Dashboard View 3" },
+//   { id: 4, url: "https://res.cloudinary.com/dfrjuatt2/image/upload/v1740344510/second_y31dyy.png", title: "Dashboard View 4" },
+// ];
+
+// function Dashboard() {
+//   const [hoveredId, setHoveredId] = useState(null);
+//   const [searchQuery, setSearchQuery] = useState("");
+
+//   return (
+//     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-200 to-slate-900">
+//       <div className="max-w-[1290px] mx-auto px-[15px] py-8">
+//         {/* Header Section */}
+//         <div className="mb-8">
+//           <h1 className="text-3xl font-bold text-white mb-4">Dashboard Gallery</h1>
+//         </div>
+
+//         {/* Gallery Grid */}
+//         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-9">
+//           {photos.map((photo) => (
+//             <div
+//               key={photo.id}
+//               className="group relative rounded-xl overflow-hidden shadow-xl transform transition-all duration-300 hover:scale-[1.02]"
+//               onMouseEnter={() => setHoveredId(photo.id)}
+//               onMouseLeave={() => setHoveredId(null)}
+//             >
+//               <div className="aspect-w-16 aspect-h-9">
+//                 <img
+//                   src={photo.url}
+//                   alt={photo.title}
+//                   className="w-full h-full object-cover"
+//                 />
+//               </div>
+//               <div
+//                 className={`absolute inset-0 bg-gradient-to-t from-black/70 to-transparent p-4 flex flex-col justify-end transform transition-all duration-300 ${
+//                   hoveredId === photo.id ? 'opacity-100' : 'opacity-0'
+//                 }`}
+//               >
+//                 <h3 className="text-white font-semibold text-lg mb-2">{photo.title}</h3>
+//                 <div className="flex gap-2">
+//                   <button className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded-md transition-colors">
+//                     View
+//                   </button>
+//                   <button className="px-3 py-1 bg-gray-600 hover:bg-gray-700 text-white text-sm rounded-md transition-colors">
+//                     Details
+//                   </button>
+//                 </div>
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default Dashboard;
+
 import React, { useState } from "react";
-import { Search, Filter } from "lucide-react";
+import { motion } from "framer-motion";
 
 const photos = [
   { id: 1, url: "https://res.cloudinary.com/dfrjuatt2/image/upload/v1740344143/first_iq1b0g.png", title: "Dashboard View 1" },
@@ -103,50 +165,132 @@ function Dashboard() {
   const [hoveredId, setHoveredId] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
 
+  // Container variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  // Item variants
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 12
+      }
+    }
+  };
+
+  // Button variants
+  const buttonVariants = {
+    initial: { scale: 1 },
+    hover: { scale: 1.05 }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-200 to-slate-900">
+    <motion.div 
+      className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-200 to-slate-900"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+    >
       <div className="max-w-[1290px] mx-auto px-[15px] py-8">
         {/* Header Section */}
-        <div className="mb-8">
+        <motion.div 
+          className="mb-8"
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ 
+            type: "spring",
+            stiffness: 100,
+            damping: 10,
+            delay: 0.2
+          }}
+        >
           <h1 className="text-3xl font-bold text-white mb-4">Dashboard Gallery</h1>
-        </div>
+        </motion.div>
 
         {/* Gallery Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-9">
+        <motion.div 
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-9"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {photos.map((photo) => (
-            <div
+            <motion.div
               key={photo.id}
               className="group relative rounded-xl overflow-hidden shadow-xl transform transition-all duration-300 hover:scale-[1.02]"
               onMouseEnter={() => setHoveredId(photo.id)}
               onMouseLeave={() => setHoveredId(null)}
+              variants={itemVariants}
+              whileHover={{ y: -5 }}
             >
               <div className="aspect-w-16 aspect-h-9">
-                <img
+                <motion.img
                   src={photo.url}
                   alt={photo.title}
                   className="w-full h-full object-cover"
+                  initial={{ scale: 1 }}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.3 }}
                 />
               </div>
-              <div
+              <motion.div
                 className={`absolute inset-0 bg-gradient-to-t from-black/70 to-transparent p-4 flex flex-col justify-end transform transition-all duration-300 ${
                   hoveredId === photo.id ? 'opacity-100' : 'opacity-0'
                 }`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ 
+                  opacity: hoveredId === photo.id ? 1 : 0,
+                  y: hoveredId === photo.id ? 0 : 10
+                }}
+                transition={{ duration: 0.2 }}
               >
-                <h3 className="text-white font-semibold text-lg mb-2">{photo.title}</h3>
-                <div className="flex gap-2">
-                  <button className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded-md transition-colors">
+                <motion.h3 
+                  className="text-white font-semibold text-lg mb-2"
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ 
+                    x: hoveredId === photo.id ? 0 : -20,
+                    opacity: hoveredId === photo.id ? 1 : 0
+                  }}
+                  transition={{ duration: 0.3, delay: 0.1 }}
+                >
+                  {photo.title}
+                </motion.h3>
+                <motion.div 
+                  className="flex gap-2"
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ 
+                    y: hoveredId === photo.id ? 0 : 20,
+                    opacity: hoveredId === photo.id ? 1 : 0
+                  }}
+                  transition={{ duration: 0.3, delay: 0.2 }}
+                >
+                  <motion.button 
+                    className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded-md transition-colors"
+                    variants={buttonVariants}
+                    whileHover="hover"
+                    whileTap={{ scale: 0.95 }}
+                  >
                     View
-                  </button>
-                  <button className="px-3 py-1 bg-gray-600 hover:bg-gray-700 text-white text-sm rounded-md transition-colors">
-                    Details
-                  </button>
-                </div>
-              </div>
-            </div>
+                  </motion.button>
+                </motion.div>
+              </motion.div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
