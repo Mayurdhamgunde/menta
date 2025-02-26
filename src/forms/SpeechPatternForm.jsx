@@ -65,7 +65,7 @@ const SpeechPatternForm = ({ formData, handleChange, handleSubmit, handlePreviou
         />
         
         <CustomInput
-          label="Coherence Score (1-10)"
+          label="Speech Clarity (1-10)"
           id="coherenceScore"
           name="coherenceScore"
           type="number"
