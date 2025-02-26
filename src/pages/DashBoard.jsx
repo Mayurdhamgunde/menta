@@ -152,7 +152,7 @@
 // export default Dashboard;
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const photos = [
   { id: 1, url: "https://res.cloudinary.com/dfrjuatt2/image/upload/v1740344143/first_iq1b0g.png", title: "Dashboard View 1" },
@@ -164,6 +164,7 @@ const photos = [
 function Dashboard() {
   const [hoveredId, setHoveredId] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
 
   // Container variants
   const containerVariants = {
@@ -194,6 +195,29 @@ function Dashboard() {
   const buttonVariants = {
     initial: { scale: 1 },
     hover: { scale: 1.05 }
+  };
+
+  // Modal variants
+  const modalVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { duration: 0.3 }
+    },
+    exit: { 
+      opacity: 0,
+      transition: { duration: 0.2 }
+    }
+  };
+
+  // Function to handle view button click
+  const handleViewClick = (photo) => {
+    setSelectedImage(photo);
+  };
+
+  // Function to close the modal
+  const closeModal = () => {
+    setSelectedImage(null);
   };
 
   return (
@@ -281,6 +305,7 @@ function Dashboard() {
                     variants={buttonVariants}
                     whileHover="hover"
                     whileTap={{ scale: 0.95 }}
+                    onClick={() => handleViewClick(photo)}
                   >
                     View
                   </motion.button>
@@ -290,6 +315,49 @@ function Dashboard() {
           ))}
         </motion.div>
       </div>
+
+      {/* Fullscreen Image Modal */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div 
+            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center"
+            variants={modalVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            onClick={closeModal}
+          >
+            <motion.div 
+              className="relative max-w-screen max-h-screen p-4"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", damping: 15 }}
+              onClick={e => e.stopPropagation()}
+            >
+              <img 
+                src={selectedImage.url}
+                alt={selectedImage.title}
+                className="max-h-[90vh] max-w-[90vw] object-contain"
+              />
+              <motion.button
+                className="absolute top-4 right-4 bg-white/20 hover:bg-white/30 rounded-full p-2 text-white"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={closeModal}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </motion.button>
+              <div className="absolute bottom-4 left-0 right-0 text-center">
+                <h2 className="text-white text-xl font-semibold">{selectedImage.title}</h2>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
