@@ -113,7 +113,8 @@ function MainContent() {
       </Routes>
 
       {/* Show Footer only if NOT on the login page */}
-      {location.pathname !== "/login" && <Footer />}
+      {/* {location.pathname !== "/login" && <Footer />} */}
+      {location.pathname !== "/login" && location.pathname !== "/signup" && <Footer />}
     </div>
   );
 }
