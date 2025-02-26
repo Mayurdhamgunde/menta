@@ -337,7 +337,7 @@ const Navbar = () => {
               <Link to="/dashboard" className="font-medium py-3 hover:text-purple-700 transition duration-300" onClick={handleLinkClick}>
                DASHBOARD
               </Link>
-              <Link to="/video-call" className="font-medium py-3 hover:text-purple-700 transition duration-300" onClick={handleLinkClick}>
+              <Link to="/virtual-care" className="font-medium py-3 hover:text-purple-700 transition duration-300" onClick={handleLinkClick}>
                 VIDEO CALL
               </Link>
               <Link to="/login" className="bg-purple-700 text-white px-6 py-2 rounded-md font-medium text-center hover:bg-purple-600 transition duration-300" onClick={handleLinkClick}>

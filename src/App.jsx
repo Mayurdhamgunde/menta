@@ -108,7 +108,7 @@ function MainContent() {
         <Route path="/login" element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path="/predict" element={<FormContainer />} />
-        <Route path="/video-call" element={<VideoCall />} />
+        <Route path="/virtual-care" element={<VideoCall />} />
         <Route path="/dashboard" element={<DashBoard />} />
       </Routes>
 
