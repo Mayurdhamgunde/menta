@@ -981,7 +981,7 @@ const Signup = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen p-3 bg-gray-50">
+        <div className="flex items-center justify-center min-h-screen p-3">
             <div className="w-full max-w-md overflow-hidden bg-white rounded-xl shadow-xl transition-all duration-300 hover:shadow-2xl">
                 {/* Header with gradient background */}
                 <div className="relative h-28 sm:h-40 bg-gradient-to-r from-purple-600 to-indigo-600">
