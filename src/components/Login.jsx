@@ -106,16 +106,21 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { handleError, handleSuccess } from '../utils';
 import 'react-toastify/dist/ReactToastify.css';
-import { Mail, Lock, ArrowRight } from 'lucide-react';
+import { Mail, Lock, ArrowRight,Eye,EyeOff } from 'lucide-react';
 
 const Login = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState({ email: "", password: "" });
     const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleInput = (e) => {
         const { name, value } = e.target;
         setUser(prev => ({ ...prev, [name]: value }));
+    }
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
     }
 
     const handleSubmit = async (e) => {
@@ -189,13 +194,19 @@ const Login = () => {
                             <Lock size={18} />
                         </div>
                         <input
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             name='password'
                             value={user.password}
                             onChange={handleInput}
                             placeholder='Password'
-                            className="w-full p-3 pl-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200"
+                            className="w-full p-3 pl-10 pr-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200"
                         />
+                        <div 
+                            className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-gray-500 hover:text-gray-700 transition-colors duration-200"
+                            onClick={togglePasswordVisibility}
+                         >
+                            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                        </div>
                     </div>
 
                     <button
