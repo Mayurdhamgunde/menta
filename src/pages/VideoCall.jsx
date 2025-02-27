@@ -573,11 +573,6 @@ export default function VideoCall() {
         });
       });
 
-      // Add stream handler to peer
-      peer.on('stream', (remoteStream) => {
-        console.log('Received stream from peer:', target);
-      });
-
       peer.on('error', err => {
         console.error('Peer error:', err);
       });
@@ -606,11 +601,6 @@ export default function VideoCall() {
 
       peer.on('signal', signal => {
         socket.emit('answer-call', { signal, to: caller });
-      });
-
-      // Add stream handler to peer
-      peer.on('stream', (remoteStream) => {
-        console.log('Received stream from peer:', caller);
       });
 
       peer.on('error', err => {
@@ -787,19 +777,27 @@ const PeerVideo = ({ peer, userName }) => {
   const videoRef = useRef();
   
   useEffect(() => {
-    if (peer) {
-      peer.on('stream', stream => {
-        console.log('Setting stream to video element for', userName);
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
-      });
+    if (!peer) return;
+    
+    // Function to handle incoming stream
+    const handleStream = (stream) => {
+      console.log('Setting stream to video element for', userName);
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+      }
+    };
+    
+    // Add event listener
+    peer.on('stream', handleStream);
+    
+    // Check if stream is already available (might be the case with existing peers)
+    if (peer.streams && peer.streams[0]) {
+      handleStream(peer.streams[0]);
     }
     
     return () => {
-      if (peer) {
-        peer.off('stream');
-      }
+      // Don't use peer.off as it may not work properly with simple-peer
+      // The peer will be destroyed by the parent component when needed
     };
   }, [peer, userName]);
   
