@@ -80,21 +80,21 @@ const Signup = () => {
     };
 
     return (
-        <div className="flex min-h-screen">
-            {/* Left Panel - Image */}
-            <div className="hidden md:flex md:w-1/2 bg-gradient-to-br from-purple-700 to-indigo-900 relative">
+        <div className="flex flex-col md:flex-row min-h-screen">
+            {/* Banner - Shown on both mobile and desktop */}
+            <div className="w-full md:w-1/2 bg-gradient-to-br from-purple-700 to-indigo-900 relative h-[20vh] md:min-h-screen shadow-lg">
                 <div className="absolute inset-0 bg-black opacity-20"></div>
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542353436-312f0e1f67ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80')] bg-cover bg-center opacity-60"></div>
-                <div className="relative z-10 flex flex-col justify-between w-full p-12 text-white">
-                    <div>
-                        <h1 className="text-3xl font-bold">Menta Health</h1>
-                        <p className="mt-2 text-gray-200">Your mental wellness companion</p>
+                <div className="relative z-10 flex flex-col justify-center md:justify-between items-center md:items-start w-full h-full p-6 md:p-12 text-white">
+                    <div className="text-center md:text-left">
+                        <h1 className="text-2xl md:text-3xl font-bold">Menta Health</h1>
+                        <p className="mt-1 md:mt-2 text-sm md:text-base text-gray-200">Your mental wellness companion</p>
                     </div>
-                    <div>
-                        <h2 className="text-4xl font-extrabold leading-tight">Start your journey to better mental health today</h2>
-                        <p className="mt-6 text-lg">Join our community and get access to professional support and resources.</p>
+                    <div className="hidden md:block">
+                        <h2 className="text-lg md:text-4xl font-extrabold leading-tight">Start your journey to better mental health today</h2>
+                        <p className="mt-1 md:mt-6 text-xs md:text-lg">Join our community and get access to professional support and resources.</p>
                     </div>
-                    <div className="flex gap-2 mt-6">
+                    <div className="hidden md:flex gap-2 mt-4 md:mt-6">
                         <div className="w-2 h-2 rounded-full bg-white opacity-60"></div>
                         <div className="w-2 h-2 rounded-full bg-white"></div>
                         <div className="w-2 h-2 rounded-full bg-white opacity-60"></div>
@@ -102,11 +102,11 @@ const Signup = () => {
                 </div>
             </div>
 
-            {/* Right Panel - Signup Form */}
-            <div className="w-full md:w-1/2 flex items-center justify-center bg-gray-50 px-6">
-                <div className="w-full max-w-md p-8">
-                    <div className="text-center mb-10">
-                        <h2 className="text-3xl font-extrabold text-gray-800">Create Account</h2>
+            {/* Signup Form */}
+            <div className="w-full md:w-1/2 flex items-center justify-center bg-gray-50 px-6 py-8 md:py-0">
+                <div className="w-full max-w-md p-4 md:p-8">
+                    <div className="text-center mb-8">
+                        <h2 className="text-2xl md:text-3xl font-extrabold text-gray-800">Create Account</h2>
                         <p className="mt-3 text-gray-600">Sign up to get started</p>
                     </div>
 
