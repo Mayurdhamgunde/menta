@@ -87,7 +87,7 @@ const Signup = () => {
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542353436-312f0e1f67ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80')] bg-cover bg-center opacity-60"></div>
                 <div className="relative z-10 flex flex-col justify-center md:justify-between items-center md:items-start w-full h-full p-6 md:p-12 text-white">
                     <div className="text-center md:text-left">
-                        <h1 className="text-2xl md:text-3xl font-bold">Menta Health</h1>
+                        <h1 className="text-2xl md:text-3xl font-bold">Mental Health</h1>
                         <p className="mt-1 md:mt-2 text-sm md:text-base text-gray-200">Your mental wellness companion</p>
                     </div>
                     <div className="hidden md:block">
